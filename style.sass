@@ -5,6 +5,7 @@
     border: 1px solid black
     margin: 0 auto
     text-align: center
+    line-height: 0
     table
         width: 25%
         display: inline-table
@@ -15,6 +16,18 @@
                 height: 3.2em
                 font-size: 1.5vmin
                 border: 1px solid black
+                position: relative
+                span
+                    position: absolute
+                    top: 0
+                    bottom: 0
+                    font-size: 1.5em
+                    right: 0
+                    left: 0
+                    margin: auto
+                    line-height: 0
+                    height: 0
+                    pointer-events: none
 #score
     width: 80vmin
     margin: 0 auto
@@ -26,5 +39,3 @@
             font-weight: bold
         &:nth-of-type(odd)
             text-align: right
-            
-            
