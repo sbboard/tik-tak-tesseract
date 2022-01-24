@@ -62,6 +62,9 @@ table {
   width: 25%;
   display: inline-table;
 }
+#gameWrap table tbody[data-active=false] td {
+  background-color: red;
+}
 #gameWrap table tr {
   width: 100%;
 }
