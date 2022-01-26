@@ -1,6 +1,6 @@
 let isPlayerOneTurn = false;
-const playerOneSymbol = "&#9711;";
-const playerTwoSymbol = "&#10006;";
+const playerOneSymbol = "◯";
+const playerTwoSymbol = "✖";
 let playerSymbol = playerOneSymbol;
 let tbodys = document.querySelectorAll("tbody");
 let activeTables = [];
@@ -10,8 +10,8 @@ function changeTurn() {
   isPlayerOneTurn = !isPlayerOneTurn;
   playerSymbol = isPlayerOneTurn ? playerOneSymbol : playerTwoSymbol;
   currentTurnText.innerHTML = isPlayerOneTurn
-    ? `player 1 (${playerSymbol})`
-    : `player 2 (${playerSymbol})`;
+    ? `player ${playerSymbol}`
+    : `player ${playerSymbol}`;
 }
 
 function checkValidMove(currentCell) {
@@ -23,10 +23,30 @@ function checkValidMove(currentCell) {
   }
 }
 
-function checkForWin() {
+function checkForWin(clickedCell) {
   let win = false;
+  //check same board | horizontal
+  if (
+    Array.from(clickedCell.parentElement.children).filter((x) => {
+      return x.outerText == playerSymbol;
+    }).length == 4
+  ) {
+    win = true;
+    console.log("horizontal win");
+  }
+  //win set
   if (win) {
+    if (isPlayerOneTurn) {
+      document.querySelector("#p1-points").innerHTML =
+        Number(document.querySelector("#p1-points").innerHTML) + 1;
+    } else {
+      document.querySelector("#p2-points").innerHTML =
+        Number(document.querySelector("#p2-points").innerHTML) + 1;
+    }
     activeTables = [];
+    tbodys.forEach((x) => {
+      x.setAttribute("data-active", "true");
+    });
   }
 }
 
@@ -113,7 +133,7 @@ function clickCell() {
   if (checkValidMove(this)) {
     checkBoardPhase(this);
     this.innerHTML = `<span>${playerSymbol}</span>`;
-    checkForWin();
+    checkForWin(this);
     changeTurn();
   }
 }

@@ -63,7 +63,7 @@ table {
   display: inline-table;
 }
 #gameWrap table tbody[data-active=false] td {
-  background-color: red;
+  background-color: #bbb;
 }
 #gameWrap table tr {
   width: 100%;
