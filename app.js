@@ -70,7 +70,7 @@ function checkBoardPhase(currentCell) {
         }
       });
     } else {
-      if (activeTables.indexOf(currentTable) == -1) {
+      if (activeTables.indexOf(tableNo) == -1) {
         activeTables.push(tableNo);
         //is row
         if (
