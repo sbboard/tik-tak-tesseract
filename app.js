@@ -86,14 +86,16 @@ function checkBoardPhase(currentCell) {
     if (activeTables.length == 0) {
       activeTables.push(tableNo);
       tbodys.forEach((x, i) => {
+        console.log(x.classList.contains("played"));
         if (
+          x.classList.contains("played") == false &&
           //check row
-          (x.dataset.count > tableNo - 1 - ((tableNo - 1) % 4) &&
+          ((x.dataset.count > tableNo - 1 - ((tableNo - 1) % 4) &&
             x.dataset.count <= tableNo - 1 + (4 - ((tableNo - 1) % 4))) ||
-          //check collumn
-          (x.dataset.count - tableNo) % 4 == 0 ||
-          //check diagonal
-          checkDiag(x.dataset.count, tableNo)
+            //check collumn
+            (x.dataset.count - tableNo) % 4 == 0 ||
+            //check diagonal
+            checkDiag(x.dataset.count, tableNo))
         ) {
           x.setAttribute("data-active", "true");
         } else {
