@@ -44,21 +44,33 @@ function checkForWin(clickedCell) {
       document.querySelector("#p2-points").innerHTML =
         Number(document.querySelector("#p2-points").innerHTML) + 1;
     }
-    activeTables = [];
-    let oldBoard = document.querySelectorAll("tbody[data-active='true']");
-    oldBoard.forEach((x) => {
-      if (x.innerText.trim().length > 0) {
-        x.classList.add("played");
-      }
-    });
-    tbodys.forEach((x) => {
-      if (x.classList.contains("played")) {
-        x.setAttribute("data-active", "false");
-      } else {
-        x.setAttribute("data-active", "true");
-      }
-    });
+    resetBoard();
+  } else {
+    //check for draw
+    if (
+      document.querySelectorAll("[data-active='true'] td").length ==
+      document.querySelectorAll("[data-active='true'] td span").length
+    ) {
+      resetBoard();
+    }
   }
+}
+
+function resetBoard() {
+  activeTables = [];
+  let oldBoard = document.querySelectorAll("tbody[data-active='true']");
+  oldBoard.forEach((x) => {
+    if (x.innerText.trim().length > 0) {
+      x.classList.add("played");
+    }
+  });
+  tbodys.forEach((x) => {
+    if (x.classList.contains("played")) {
+      x.setAttribute("data-active", "false");
+    } else {
+      x.setAttribute("data-active", "true");
+    }
+  });
 }
 
 function checkBoardPhase(currentCell) {
