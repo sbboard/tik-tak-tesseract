@@ -4,6 +4,7 @@ const playerTwoSymbol = "✖";
 let playerSymbol = playerOneSymbol;
 let tbodys = document.querySelectorAll("tbody");
 let activeTables = [];
+let finishedTables = [];
 
 function changeTurn() {
   let currentTurnText = document.querySelector("#currentTurn");
@@ -44,8 +45,18 @@ function checkForWin(clickedCell) {
         Number(document.querySelector("#p2-points").innerHTML) + 1;
     }
     activeTables = [];
+    let oldBoard = document.querySelectorAll("tbody[data-active='true']");
+    oldBoard.forEach((x) => {
+      if (x.innerText.trim().length > 0) {
+        x.classList.add("played");
+      }
+    });
     tbodys.forEach((x) => {
-      x.setAttribute("data-active", "true");
+      if (x.classList.contains("played")) {
+        x.setAttribute("data-active", "false");
+      } else {
+        x.setAttribute("data-active", "true");
+      }
     });
   }
 }
