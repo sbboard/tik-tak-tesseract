@@ -5,6 +5,7 @@ let playerSymbol = playerOneSymbol;
 let tbodys = document.querySelectorAll("tbody");
 let activeTables = [];
 let finishedTables = [];
+let testDummy;
 
 function changeTurn() {
   let currentTurnText = document.querySelector("#currentTurn");
@@ -26,7 +27,19 @@ function checkValidMove(currentCell) {
 
 function checkForWin(clickedCell) {
   let win = false;
-  //check same board | horizontal
+
+  //clickedCell variables
+  //index of clicked within its own table
+  const indexOfClicked = [
+    ...clickedCell.parentElement.parentElement.querySelectorAll("td"),
+  ].indexOf(clickedCell);
+  const collumnPosition = indexOfClicked % 4;
+  const allCellsInTable =
+    clickedCell.parentElement.parentElement.querySelectorAll("td");
+
+  testDummy = clickedCell;
+
+  //same board | horizontal
   if (
     Array.from(clickedCell.parentElement.children).filter((x) => {
       return x.outerText == playerSymbol;
@@ -35,7 +48,20 @@ function checkForWin(clickedCell) {
     win = true;
     console.log("horizontal win");
   }
-  //win set
+  //same board | vertical
+  else if (
+    allCellsInTable[collumnPosition % 4].innerHTML ==
+      allCellsInTable[(collumnPosition % 4) + 4].innerHTML &&
+    allCellsInTable[(collumnPosition % 4) + 4].innerHTML ==
+      allCellsInTable[(collumnPosition % 4) + 4 * 2].innerHTML &&
+    allCellsInTable[(collumnPosition % 4) + 4 * 2].innerHTML ==
+      allCellsInTable[(collumnPosition % 4) + 4 * 3].innerHTML
+  ) {
+    win = true;
+    console.log("vertical win");
+  }
+
+  //win
   if (win) {
     if (isPlayerOneTurn) {
       document.querySelector("#p1-points").innerHTML =
@@ -98,7 +124,6 @@ function checkBoardPhase(currentCell) {
     if (activeTables.length == 0) {
       activeTables.push(tableNo);
       tbodys.forEach((x, i) => {
-        console.log(x.classList.contains("played"));
         if (
           x.classList.contains("played") == false &&
           //check row
